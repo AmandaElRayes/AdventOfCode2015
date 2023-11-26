@@ -28,10 +28,10 @@ namespace Tests
         {
             // Arrange
             var grid = _sut.CreateGrid(gridSize);
-            var brightness = 0;
+            var brightnessGrid = _sut.CreateGrid(gridSize);
 
             // Act
-            var result = _sut.LightGrid(grid, input, brightness);
+            var result = _sut.LightGrid(grid, input, brightnessGrid);
             var count = _sut.CountGrid(result.Item1, gridSize);
             Console.WriteLine(result.Item2);
             // Assert
@@ -41,16 +41,18 @@ namespace Tests
 
         [TestCase("turn on 0,0 through 0,0", 1, 1)]
         [TestCase("toggle 0,0 through 999,999", 2000000, 1000)]
+        [TestCase("turn off 1,1 through 100,100", 0, 1000)]
         public void TestBrightness(string input, int brightness, int gridSize)
         {
             // Arrange
             var grid = _sut.CreateGrid(gridSize);
+            var brightnessGrid = _sut.CreateGrid(gridSize);
 
             // Act
-            var result = _sut.LightGrid(grid, input, 0);
-            Console.WriteLine(result.Item2);
+            var result = _sut.LightGrid(grid, input, brightnessGrid);
+            var brightnessCount = _sut.CountBrightness(result.Item2, gridSize);
             // Assert
-            result.Item2.Should().Be(brightness);
+            brightnessCount.Should().Be(brightness);
 
         }
     }
