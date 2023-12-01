@@ -5,40 +5,41 @@ namespace Tests
 {
     public class Day8ChallengeTests
     {
- 
+        private Day8Challenge _sut;
+        [SetUp]
+        public void Setup()
+        {
+            _sut = new Day8Challenge();
+        }
+
         [Test]
         public void TestStringLiteralCount()
         {
             // Arrange
             using var sr = new StreamReader("day8TestInput.txt");
-            var input = sr.ReadToEnd();
-            var sut = new Day8Challenge();
+            //var input = sr.ReadToEnd();
+            //input = "\"\"\r\n\"abc\"\r\n\"aaa\\\"aaa\"\r\n\"\\x27\"";
+
             var expectedTotalCount = 11;
 
-            // Act
-            var count = sut.StringCount(input);
+            //Act
+           var count = _sut.StringCount(sr);
 
-            // Assert
+            //Assert
             count.Should().Be(expectedTotalCount);
         }
-
 
         [Test]
         public void TestInMemoryCount()
         {
             // Arrange
-            var sut = new Day8Challenge();
             using var sr = new StreamReader("day8TestInput.txt");
             var expectedCount = new int[] { 2, 5, 10, 6 };
             var x = 23;
-            var input = sr.ReadToEnd();
             // Act
-            var count = sut.AllCharacterCount(input);
+            var count = _sut.AllCharacterCount(sr);
             // Assert
-            count.Should().Be(x);
-            
-
-
+            count.Should().Be(x);     
         }
     }
 }

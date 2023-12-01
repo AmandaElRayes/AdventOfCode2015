@@ -1,41 +1,75 @@
-﻿namespace day8
+﻿using System.Text.RegularExpressions;
+
+namespace day8
 {
     public class Day8Challenge
     {
         public void Run()
         {
             using var sr = new StreamReader("input.txt");
-            var allCharCount = 0;
-            var stringCount = 0;
-            //var input = sr.ReadToEnd();
+            var stringCount = StringCount(sr);
 
-            //allCharCount = AllCharacterCount(input);
-            //stringCount = StringCount(input.ToString());
-
-            while (!sr.EndOfStream)
-            {
-                var line = sr.ReadLine();
-                allCharCount += AllCharacterCount(line);
-                stringCount += StringCount(line.ToString());
-            }
-
+            using var sr2 = new StreamReader("input.txt");
+            var allCharCount = AllCharacterCount(sr2);
 
             Console.WriteLine(allCharCount - stringCount);
         }
+        public int StringCount(StreamReader sr)
+        {            
+            var numberOfCharacters = 0;
+            
+            while (!sr.EndOfStream)
+            {
+                var currentCount = 0;
+                var input = sr.ReadLine();
+                var originalInput = input;
 
-        public int StringCount(string input)
-        {
-            return input.Length;
+                const string innerQuote = @"\\" + "\"";
+                const string hexPattern = @"\\x[a-z0-9][a-z0-9]";
+                const string firstQuote = "^\"";
+                const string lastQuote = "\"$";
+                const string backslash = @"\\";                
+
+                input = Regex.Replace(input, firstQuote, "");
+                input = Regex.Replace(input, lastQuote, "");
+                input = Regex.Replace(input, innerQuote, "1");  
+                input = Regex.Replace(input, hexPattern, "1");
+                input = input.Replace(backslash, "1");
+
+                currentCount = input.Count(c =>
+                !char.IsWhiteSpace(c));
+
+                numberOfCharacters += input.Count(c =>
+                !char.IsWhiteSpace(c));
+            }
+            return numberOfCharacters;
         }
 
-        public int AllCharacterCount(string input)
+        public int AllCharacterCount(StreamReader sr)
         {
+            
+            var input = sr.ReadToEnd();
             var numberOfCharacters = input.
                    Count(c =>
-                   !char.IsControl(c) &&
                     !char.IsWhiteSpace(c));
 
             return numberOfCharacters;
         }
+
+        public void Main()
+        {
+            var lines = File.ReadLines(@"input.txt");
+
+            int totalCode = lines.Sum(l => l.Length);
+            int totalCharacters = lines.Sum(CharacterCount);
+            int totalEncoded = lines.Sum(EncodedStringCount);
+
+            Console.WriteLine(totalCode - totalCharacters);
+            Console.WriteLine(totalEncoded - totalCode);
+        }
+
+        int CharacterCount(string arg) => Regex.Match(arg, @"^""(\\x..|\\.|.)*""$").Groups[1].Captures.Count;
+        int EncodedStringCount(string arg) => 2 + arg.Sum(CharsToEncode);
+        int CharsToEncode(char c) => c == '\\' || c == '\"' ? 2 : 1;
     }
 }
