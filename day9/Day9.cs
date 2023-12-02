@@ -17,7 +17,24 @@ namespace day9
 
             root = BuildTree(ref parentName, ref childrenList, root, input, index);
 
+            shortestDistance = GetShortestDistance(root, ref shortestDistance);
+
             Console.WriteLine(shortestDistance);
+        }
+
+        private static int GetShortestDistance(Node root, ref int shortestDistance)
+        {
+            shortestDistance += root.Distance;
+            var smallestChild = root.GetSmallestChild(root.Children);
+            if (smallestChild.HasChildren())
+            {
+                GetShortestDistance(smallestChild, ref shortestDistance);
+            }
+            else
+            {
+                shortestDistance += smallestChild.Distance;
+            }
+            return shortestDistance;
         }
 
         private static Node BuildTree(ref string parentName, ref List<Node> childrenList, Node root, string[] input, int index)
@@ -57,17 +74,30 @@ namespace day9
 
             }
             
-            if (root.HasChildren(root))
+            if (root.HasChildren())
             {
                 index++;
-                for (var i = root.Children.Count()-1; i >= 0; i--)
+                //for (var i = root.Children.Count()-1; i >= 0; i--)
+                //{
+                //    var newroot = root?.Children?.Where(x => x.Name == line[0]).First();
+                //    if (newroot != null)
+                //    {
+                //        BuildTree(ref parentName, ref childrenList, newroot, input, index);
+                //    }
+                //    else
+                //    {
+                //        i--;
+                //    }
+                //}               
+                for (var i = root.Children.Count() - 1; i >= 0; i--)
                 {
                     var newroot = root?.Children?.Where(x => x.Name == root.Children[i].Name).First();
+                    parentName = root.Children[i].Name;
                     if (newroot != null)
                     {
                         BuildTree(ref parentName, ref childrenList, newroot, input, index);
-                    }                    
-                }               
+                    }
+                }
 
             }
             else
@@ -98,9 +128,9 @@ namespace day9
             this.Name = name;
         }
 
-        public bool HasChildren(Node node)
+        public bool HasChildren()
         {
-            if(node.Children != null)
+            if(this.Children != null)
             {
                 return true;
             }
@@ -119,6 +149,23 @@ namespace day9
             }
 
             return this.Children;
+        }
+
+        public Node GetSmallestChild(List<Node> nodes)
+        {
+            Node smallestNode = new Node(0, "0");
+            for (int i = 0; i < nodes.Count() - 1; i++)
+            {
+                if (nodes[i].Distance >= nodes[i + 1].Distance)
+                {
+                    smallestNode = nodes[i + 1];
+                }
+                else
+                {
+                    smallestNode = nodes[0];
+                }
+            }
+            return smallestNode;
         }
     }
 
