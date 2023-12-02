@@ -1,10 +1,5 @@
 ﻿using day6;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tests
 {
@@ -23,7 +18,7 @@ namespace Tests
         [TestCase("turn off 499,499 through 500,500", 0, 1000)]
         [TestCase("turn on 499,499 through 500,500", 4, 1000)]
         [TestCase("toggle 499,499 through 500,500", 4, 1000)]
-        
+
         public void Test(string input, int noOfLights, int gridSize)
         {
             // Arrange

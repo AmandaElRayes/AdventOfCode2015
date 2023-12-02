@@ -2,7 +2,7 @@
 try
 {
     using var sr = new StreamReader("input.txt");
-    
+
     (List<int> volume, List<int> distanceAroundSides) = GetAmountOfWrappingPaper(sr);
     GetLenthOfRibbon(volume, distanceAroundSides);
 
@@ -22,7 +22,7 @@ static void GetLenthOfRibbon(List<int> volume, List<int> distanceAroundSides)
 static (List<int>, List<int>) GetAmountOfWrappingPaper(StreamReader sr)
 {
     int wrappingPaperInSqFeet = 0;
-    
+
     List<int> volume = new List<int>();
     List<int> distanceAroundSides = new List<int>();
     while (!sr.EndOfStream)
@@ -56,7 +56,7 @@ static (List<int>, List<int>) GetAmountOfWrappingPaper(StreamReader sr)
         dist.Remove(dist.Max());
 
         volume.Add(w * l * h);
-        distanceAroundSides.Add(dist[0]*2 + dist[1]*2);
+        distanceAroundSides.Add(dist[0] * 2 + dist[1] * 2);
         smallestSurfaceArea = surfaces.Min();
         wrappingPaperInSqFeet += wSurfaceArea + hSurfaceArea + lSurfaceArea + smallestSurfaceArea;
 

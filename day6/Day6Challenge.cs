@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace day6
+﻿namespace day6
 {
     public class Day6Challenge
     {
@@ -131,8 +129,8 @@ namespace day6
             {
                 for (int j = 0; j < gridSize; j++)
                 {
-                    if (grid[i,j] == 1)
-                    {                        
+                    if (grid[i, j] == 1)
+                    {
                         count++;
                     }
                 }

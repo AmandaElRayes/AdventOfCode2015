@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace day5
 {
@@ -71,7 +70,7 @@ namespace day5
 
         private bool ValidateVowels(string line)
         {
-            var vowels = new List<string>() { "a", "e", "i", "o", "u"};
+            var vowels = new List<string>() { "a", "e", "i", "o", "u" };
             var count = 0;
             foreach (var letter in line)
             {
@@ -91,7 +90,7 @@ namespace day5
         {
             var charArray = line.ToCharArray();
 
-            for(var i = 1; i<charArray.Length; i++)
+            for (var i = 1; i < charArray.Length; i++)
             {
                 if (charArray[i] == charArray[i - 1])
                 {

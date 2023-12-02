@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace day7
+﻿namespace day7
 {
     public class day7Challenge
     {
@@ -54,7 +52,7 @@ namespace day7
         public (string, Dictionary<string, int>) DecodeElement(string[] instruction, Dictionary<string, int> dict)
         {
             string failedLetters = string.Empty;
-            if (instruction.Length == 3 )
+            if (instruction.Length == 3)
             {
                 if (instruction[0].All(char.IsDigit))
                 {
@@ -64,7 +62,7 @@ namespace day7
                 {
                     failedLetters = instruction[0];
                 }
-                
+
             }
             if (instruction.Length == 4)
             {
@@ -116,9 +114,9 @@ namespace day7
                     return instruction[1];
                 }
             }
-                var outValue = ~value1;
-                dict.TryAdd(instruction[3], outValue);
-                Console.WriteLine($"{instruction[3]} = {outValue} NOT");
+            var outValue = ~value1;
+            dict.TryAdd(instruction[3], outValue);
+            Console.WriteLine($"{instruction[3]} = {outValue} NOT");
 
 
             return string.Empty;
@@ -136,7 +134,7 @@ namespace day7
                 var success = dict.TryGetValue(instruction[0], out value1);
                 if (!success)
                 {
-                    return instruction[0] + " " +instruction[2];
+                    return instruction[0] + " " + instruction[2];
                 }
             }
             if (instruction[2].All(char.IsDigit))

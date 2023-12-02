@@ -93,7 +93,7 @@ namespace Tests
         {
             // Arrange
             var emptyDict = new Dictionary<string, int>();
-            var input = new string[] {"5", "LSHIFT", "5", "->", "d" };
+            var input = new string[] { "5", "LSHIFT", "5", "->", "d" };
             var expectedResult = new Dictionary<string, int>()
             {
                 { "d", 160 }

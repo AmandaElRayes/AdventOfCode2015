@@ -29,11 +29,11 @@
         public int CalculateNoOfHouses(List<List<int>> matrix)
         {
             var count = 0;
-            foreach(var list in matrix)
+            foreach (var list in matrix)
             {
                 foreach (var item in list)
                 {
-                    if(item != 0)
+                    if (item != 0)
                     {
                         count++;
                     }
@@ -111,9 +111,9 @@
         }
 
 
-        public (List<List<int>>, int, int) CaseUp(List<List<int>> matrix, int rowIndex, int columnIndex )
+        public (List<List<int>>, int, int) CaseUp(List<List<int>> matrix, int rowIndex, int columnIndex)
         {
-            if(rowIndex > 0)
+            if (rowIndex > 0)
             {
                 rowIndex--;
             }
@@ -129,7 +129,7 @@
             var rowCount = 0;
             foreach (var row in matrix[columnIndex])
             {
-                if(rowCount == rowIndex)
+                if (rowCount == rowIndex)
                 {
                     Console.WriteLine(row.ToString());
                     matrix[columnIndex].Add(1);
@@ -141,14 +141,14 @@
 
                 rowCount++;
             }
-            
+
 
             return (matrix, rowIndex, columnIndex);
         }
 
         public (List<List<int>>, int, int) CaseLeft(List<List<int>> matrix, int rowIndex, int columnIndex)
         {
-            if(columnIndex > 0)
+            if (columnIndex > 0)
             {
                 columnIndex--;
             }
@@ -163,18 +163,18 @@
 
 
         public (List<List<int>>, int, int) CaseRight(List<List<int>> matrix, int rowIndex, int columnIndex)
-        {            
+        {
             var colCount = 0;
             foreach (var column in matrix)
             {
-                if(colCount == columnIndex)
+                if (colCount == columnIndex)
                 {
                     column.Add(1);
                 }
                 else
                 {
                     column.Add(0);
-                } 
+                }
                 colCount++;
             }
             columnIndex++;

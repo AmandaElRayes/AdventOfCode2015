@@ -1,10 +1,5 @@
 ﻿using day4;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tests
 {
@@ -27,7 +22,7 @@ namespace Tests
             var hash = _sut.CreateMD5(input);
 
             // Assert
-            
+
             hash.StartsWith("00000").Should().BeTrue();
         }
 

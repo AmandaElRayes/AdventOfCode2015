@@ -15,9 +15,9 @@ namespace day8
             Console.WriteLine(allCharCount - stringCount);
         }
         public int StringCount(StreamReader sr)
-        {            
+        {
             var numberOfCharacters = 0;
-            
+
             while (!sr.EndOfStream)
             {
                 var currentCount = 0;
@@ -28,11 +28,11 @@ namespace day8
                 const string hexPattern = @"\\x[a-z0-9][a-z0-9]";
                 const string firstQuote = "^\"";
                 const string lastQuote = "\"$";
-                const string backslash = @"\\";                
+                const string backslash = @"\\";
 
                 input = Regex.Replace(input, firstQuote, "");
                 input = Regex.Replace(input, lastQuote, "");
-                input = Regex.Replace(input, innerQuote, "1");  
+                input = Regex.Replace(input, innerQuote, "1");
                 input = Regex.Replace(input, hexPattern, "1");
                 input = input.Replace(backslash, "1");
 
@@ -47,7 +47,7 @@ namespace day8
 
         public int AllCharacterCount(StreamReader sr)
         {
-            
+
             var input = sr.ReadToEnd();
             var numberOfCharacters = input.
                    Count(c =>

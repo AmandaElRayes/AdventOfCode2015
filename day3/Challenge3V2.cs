@@ -10,7 +10,7 @@
             var roboSantaInput = "";
             var count = 0;
             foreach (char element in input)
-            {                
+            {
                 if (IsEven(count))
                 {
                     santaInput += element;
@@ -35,7 +35,7 @@
 
         private static bool IsEven(int count)
         {
-            if(count % 2 == 0)
+            if (count % 2 == 0)
             {
                 return true;
             }
@@ -50,7 +50,7 @@
             var index = $"({rowIndex}, {colIndex})";
             indicesOfHouses.Add(index, 1);
 
-            foreach(char element in input)
+            foreach (char element in input)
             {
                 switch (element.ToString())
                 {

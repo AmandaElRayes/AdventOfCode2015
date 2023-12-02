@@ -23,7 +23,7 @@ namespace Tests
             var expectedTotalCount = 11;
 
             //Act
-           var count = _sut.StringCount(sr);
+            var count = _sut.StringCount(sr);
 
             //Assert
             count.Should().Be(expectedTotalCount);
@@ -39,7 +39,7 @@ namespace Tests
             // Act
             var count = _sut.AllCharacterCount(sr);
             // Assert
-            count.Should().Be(x);     
+            count.Should().Be(x);
         }
     }
 }
