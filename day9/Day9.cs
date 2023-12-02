@@ -12,22 +12,25 @@ namespace day9
             var parentName = string.Empty;
             Node root = new(0, "0"); // first root is empty
             var childrenList = new List<Node>();
-            // cities, distance between
-            while (!sr.EndOfStream)
-            {
-                var line = sr?.ReadLine()?.Split(" ") ?? throw new ArgumentNullException();
+            var index = 0;
+            var input = sr.ReadToEnd().Split("\r\n");
 
-                root = BuildTree(ref parentName, ref childrenList, root, line);
-                AddToDictionary(dict, line);
-            }
+            root = BuildTree(ref parentName, ref childrenList, root, input, index);
 
-            // create a map/tree for each place
             Console.WriteLine(shortestDistance);
         }
 
-        private static Node BuildTree(ref string parentName, ref List<Node> childrenList, Node root, string[] line)
+        private static Node BuildTree(ref string parentName, ref List<Node> childrenList, Node root, string[] input, int index)
         {
-
+            string[] line;
+            if(index < input.Length)
+            {
+                line = input[index].Split(" ") ?? throw new ArgumentNullException();
+            }
+            else
+            {
+                return root;
+            }
             
             if (string.IsNullOrEmpty(parentName))
             {
@@ -43,22 +46,36 @@ namespace day9
                 }
                 else
                 {
+                    
                     childrenList.Add(new Node(int.Parse(line[4]), line[0]));
-                    var children = root.AddChild(childrenList, parentName);
+                    root.AddChild(childrenList, parentName);
 
                     childrenList = new List<Node>();
 
                 }
+                parentName = line[0];
 
             }
-            parentName = line[0];
+            
             if (root.HasChildren(root))
             {
-                var newNode = root.Children.Where(x => x.Name == line[0]).First();
-                BuildTree(ref parentName, ref childrenList, newNode, line);
+                index++;
+                for (var i = root.Children.Count()-1; i >= 0; i--)
+                {
+                    var newroot = root?.Children?.Where(x => x.Name == root.Children[i].Name).First();
+                    if (newroot != null)
+                    {
+                        BuildTree(ref parentName, ref childrenList, newroot, input, index);
+                    }                    
+                }               
+
             }
-            
-            return root;
+            else
+            {
+                index++;
+
+            }
+            return BuildTree(ref parentName, ref childrenList, root, input, index);
         }
 
         private static void AddToDictionary(Dictionary<int, string[]> dict, string[] line)
@@ -96,16 +113,6 @@ namespace day9
             {
                 this.Children = new List<Node>();
                 foreach(Node node in nodes)
-                {
-                    this.Children.Add(node);
-                }
-            }
-            else
-            {
-                // should not end up here we already have a list of nodes
-                var x = this.Children.Where(x => x.Name == name).First();
-                this.Children.Add(x);  
-                foreach (var node in nodes)
                 {
                     this.Children.Add(node);
                 }
