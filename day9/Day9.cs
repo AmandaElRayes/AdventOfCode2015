@@ -12,14 +12,45 @@ namespace day9
             var parentName = string.Empty;
             Node root = new(0, "0"); // first root is empty
             var childrenList = new List<Node>();
-            var index = 0;
             var input = sr.ReadToEnd().Split("\r\n");
 
-            root = BuildTree(ref parentName, ref childrenList, root, input, index);
+            var listOfShortestDistancesPerRow = new List<int>();
 
-            shortestDistance = GetShortestDistance(root, ref shortestDistance);
+            var distances = new List<int>();
+            for (int i = input.Length - 1; i >= 0; i--)
+            {
+                var line = input[i].Split(" ") ?? throw new ArgumentNullException();
+                distances.Add(int.Parse(line[4]));
+                if (i == 0)
+                {
+                    listOfShortestDistancesPerRow.Add(distances.Min());
+                    break;
 
-            Console.WriteLine(shortestDistance);
+                }
+                var nextLine = input[i-1].Split(" ") ?? throw new ArgumentNullException();
+                
+
+                if (line[0] == nextLine[0])
+                {
+                    //add distances to list
+                    distances.Add(int.Parse(nextLine[4]));
+                }
+                else
+                {
+                    //get shortest from list.
+                    listOfShortestDistancesPerRow.Add(distances.Min());
+                    distances.Clear();
+                }
+
+            }
+            // add shortest one to tree. get all where string[0] == parent name
+
+
+            //root = BuildTree(ref parentName, ref childrenList, root, input, index);
+
+            //shortestDistance = GetShortestDistance(root, ref shortestDistance);
+
+            Console.WriteLine(listOfShortestDistancesPerRow.Sum());
         }
 
         private static int GetShortestDistance(Node root, ref int shortestDistance)
