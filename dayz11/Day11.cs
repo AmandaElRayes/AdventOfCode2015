@@ -20,19 +20,8 @@ namespace dayz11
                 input = Increment(input.ToCharArray(), 7);
                 req2 = CheckReq2(input);
             };
-            bool req1 = CheckReq1(input);
-            while (!req1)
-            {
-                input = Increment(input.ToCharArray(), 7);
-                req1 = CheckReq1(input);
-            };
-            bool req3 = CheckReq3(input);
-            while (!req3)
-            {
-                input = Increment(input.ToCharArray(), 7);
-                req3 = CheckReq3(input);
-            };
-            return input;
+
+            return GetNewPassword(input);
         }
 
         public string GetNewPassword(string input)
